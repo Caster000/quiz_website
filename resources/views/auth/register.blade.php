@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header bleu-cesi">{{ __('Inscription') }}</div>
+                <div class="card-header">{{ __('Inscription') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -38,25 +38,6 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="campus" class="col-md-4 col-form-label text-md-right">{{ __('Campus') }}</label>
-                            <select id="campus" class="form-control col-md-6" @error('campus') is-invalid @enderror name="campus" value="{{ old('campus') }}" required>
-                                    <option class="dropdown-item" value="" selected="selected">Choissisez un campus</option>
-                                @foreach($campus as $campusUnit)
-                                    <option class="dropdown-item" value="{{$campusUnit->id_campus}}">{{$campusUnit->campus}}</option>
-                                @endforeach
-                            </select>
-                            <!--<div class="col-md-6">
-                                <input id="campus" type="" class="form-control @error('campus') is-invalid @enderror" name="campus" value="{{ old('campus') }}" required autocomplete="campus" >
-
-                                @error('campus')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>-->
                         </div>
 
                         <div class="form-group row">
@@ -96,7 +77,7 @@
                         </div>
 
                         <div class="form-group row align-items-center check-control">
-                            <input type="checkbox" class="offset-3" required><span>{!!'&nbsp;'!!}J'accepte les{!!'&nbsp;'!!}</span><span><a href="{{route('mentions_legales')}}">Conditions Générales</a></span><span>{!!'&nbsp;'!!}{{__('du site du BDE Cesi')}}</span>
+{{--                            <input type="checkbox" class="offset-3" required><span>{!!'&nbsp;'!!}J'accepte les{!!'&nbsp;'!!}</span><span><a href="{{route('mentions_legales')}}">Conditions Générales</a></span><span>{!!'&nbsp;'!!}{{__('du site du BDE Cesi')}}</span>--}}
 
                         </div>
 

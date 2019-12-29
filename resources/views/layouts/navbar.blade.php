@@ -26,11 +26,19 @@
                         <a class="nav-link" href={{route('accueil')}}>Accueil<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item ">
-{{--                        <a class="nav-link " href={{route('activites')}}>Activités<span class="sr-only">(current)</span></a>--}}
+                        <a class="nav-link " href={{route('liste_quiz')}}>Liste quiz<span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-{{--                        <a class="nav-link" href={{route('boutique')}}>Boutique</a>--}}
-                    </li>
+
+                    @if(auth()->check() && (auth()->user()->id_role===\App\Role::where('role','Présentateur')->first()->id_role || auth()->user()->id_role===\App\Role::where('role','Admin')->first()->id_role))
+                        <li class="nav-item">
+                            <a class="nav-link" href={{route('creation_quiz')}}>Créer un quiz</a>
+                        </li>
+                    @endif
+                    @if(auth()->check() && auth()->user()->id_role===\App\Role::where('role','Admin')->first()->id_role)
+                        <li class="nav-item">
+                            <a class="nav-link" href={{route('admin_panel')}}>Admin panel</a>
+                        </li>
+                    @endif
                 </ul>
 {{--                @if (Session::get('cookieConsent',0) != 1)--}}
 {{--                    <div id="cookieConsent">--}}
@@ -54,11 +62,11 @@
                             </li>
                         @else
                             <li class="nav-item mr-2 ">
-{{--                                <a href="{{ route('login') }}">Connexion</a>--}}
+                                <a href="{{ route('login') }}">Connexion</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-{{--                                    <a href="{{ route('register') }}">Inscription</a>--}}
+                                    <a href="{{ route('register') }}">Inscription</a>
                                 </li>
                         @endif
                     @endauth

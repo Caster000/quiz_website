@@ -23,13 +23,13 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
-
+    protected $table = 'users';
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -51,8 +51,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'surname'=>['required','string','max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed', function($attribute, $value, $fail){
+                if(!preg_match('/.*[A-Z].*/',$value) || !preg_match('/.*[0-9].*/',$value)){ $fail('Le mot de passe doit contenir au minimum une majuscule et un chiffre'); }
+            }],
         ]);
     }
 
@@ -63,11 +66,16 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
+    {   $date =date('Y-m-d H:i:s');
+    //dd($date);
+        return \App\Users::create([
+            'nom' => $data['name'],
+            'prenom' => $data['surname'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => bcrypt($data['password']),
+            'id_role'=>1,
+            'date_creation'=>$date,
+
         ]);
     }
 }
