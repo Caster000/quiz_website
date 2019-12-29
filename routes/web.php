@@ -18,13 +18,17 @@ Route::group(['prefix' => '/'], function () {
 Route::group(['prefix' => '/creation_quiz'], function () {
 
     Route::get('/', 'CreationQuizController@index')->name('creation_quiz');
-
+    Route::post('/themeStore', 'ThemeController@store');
+    Route::get('/delete/{id_theme}','ThemeController@delete');
+    Route::post('/update/{id_theme}','QuestionController@update');
 });
 
 Route::group(['prefix' => '/liste'], function () {
 
     Route::get('/', 'ListeQuizController@index')->name('liste_quiz');
     Route::get('/{numero}', 'ListeQuizController@quiz')->name('quiz');
+
+
 });
 
 Route::group(['prefix' => '/admin'], function () {

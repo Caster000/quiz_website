@@ -16,7 +16,8 @@ use Illuminate\Notifications\Notifiable;
  * @property string $password
  */
 class Users extends Model implements Authenticatable
-{ use Notifiable;
+{
+    use Notifiable;
     use BasicAuthenticatable;
 
     public $timestamps = false;
@@ -38,7 +39,7 @@ class Users extends Model implements Authenticatable
     /**
      * @var array
      */
-    protected $fillable = ['id_role', 'nom', 'prenom', 'email', 'password','date_creation'];
+    protected $fillable = ['id_role', 'nom', 'prenom', 'email', 'password', 'date_creation'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -48,63 +49,4 @@ class Users extends Model implements Authenticatable
         return $this->belongsTo('App\Role', 'id_role', 'id_role');
     }
 
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-//     */
-//    public function activites()
-//    {
-//        return $this->hasMany('App\Activite', 'id_personne', 'id_personne');
-//    }
-//
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-//     */
-//    public function commandes()
-//    {
-//        return $this->hasMany('App\Commande', 'id_personne', 'id_personne');
-//    }
-//
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-//     */
-//    public function commenters()
-//    {
-//        return $this->hasMany('App\Commentaire', 'id_personne', 'id_personne');
-//    }
-//
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-//     */
-//    public function activites_inscrire()
-//    {
-//        return $this->belongsToMany('App\Activite', 'inscrire', 'id_personne', 'id_activite');
-//    }
-//
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-//     */
-//    public function photos_liker()
-//    {
-//        return $this->belongsToMany('App\Photo', 'liker', 'id_personne', 'id_photo');
-//    }
-//
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-//     */
-//    public function photos()
-//    {
-//        return $this->hasMany('App\Photo', 'id_personne', 'id_personne');
-//    }
-//
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-//     */
-//    public function activites_voter()
-//    {
-//        return $this->belongsToMany('App\Activite', 'voter', 'id_personne', 'id_activite');
-//    }
-//    public function routeNotificationForSlack($notification)
-//    {
-//        return 'https://hooks.slack.com/services/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';
-//    }
 }

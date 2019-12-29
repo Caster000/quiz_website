@@ -52,7 +52,7 @@
 {{--                    </div>--}}
 
 {{--                @endif--}}
-{{--            </div>--}}
+            </div>
             <div class="col-4 font-weight-bold connect">
                 <ul class="navbar-nav ">
                     @if (Route::has('login'))
