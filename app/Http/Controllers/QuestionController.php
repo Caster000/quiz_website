@@ -12,9 +12,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id_theme)
     {
-
+        $questions = Question::where('id_theme',$id_theme)->get();
+        echo json_encode($questions);
     }
 
     /**
@@ -70,7 +71,7 @@ class QuestionController extends Controller
     public function update(Request $request,  $id_theme)
     {
         $questions = Question::where('id_theme',$id_theme)->get();
-        //dd($questions);
+        //dd($request->input("0_question"));
         for ($i=0;$i<10;$i++){          //A CHANGER///////////////////////////
             $questions[$i]->question = $request->input($i."_question");
             $questions[$i]->reponse = $request->input($i."_reponse");
@@ -84,8 +85,8 @@ class QuestionController extends Controller
             //dd($questions[$i]);
         }
         //dd($questions);
-
         return redirect('/creation_quiz');
+
     }
 
     /**

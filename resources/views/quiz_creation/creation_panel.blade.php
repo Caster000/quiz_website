@@ -2,6 +2,10 @@
 
 @section('title', 'Accueil')
 
+@section('ajoutHead')
+    <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('content')
     {{--    PARTIE D'AJOUT THEME----------------------------------------------------------------------------------------------------------------------------------------------}}
     <div class="row justify-content-center">                                        {{--  Bouttons pour les admin, declenche des modals  --}}
@@ -54,6 +58,9 @@
         </tr>
         </thead>
         <tbody>
+        @if($theme->isEmpty())
+
+        @else
         @foreach($theme as $row)
             <tr>
                 <td>{{$row->theme}}</td>
@@ -61,15 +68,19 @@
                 <td>{{$row->prenom}}</td>
                 <td>
                     <div class="row justify-content-center">                                        {{--  Bouttons pour les admin, declenche des modals  --}}
-                        <button type="button" class="btn btn-primary m-2 col-3" data-toggle="modal" data-target="#ModificationModal" data-whatever="@Modifier">Modifier</button>
+                        <button id="{{$row->id_theme}}" type="button" class="btn btn-primary m-2 col-3 edit_data" data-toggle="modal" data-target="#ModificationModal" data-whatever="@Modifier">Modifier</button>
                         <a href="{{ URL::action('ThemeController@delete', $row->id_theme)}}" class="btn btn-danger m-2 col-3">Supprimer</a>
                     </div>
                 </td>
             </tr>
         @endforeach
+            @endif
         </tbody>
     </table>
 {{--MODAL POUR MODIFIER LES QUESTIONS---------------------------------}}
+    @if($theme->isEmpty())
+
+    @else
     <div class="modal fade" id="ModificationModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">            {{--  Formulaire pour ajouter une activite   --}}
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -80,22 +91,31 @@
                     </button>
                 </div>
                 <div class="modal-body mr-5 ml-5">
-                    @foreach($theme as $row)
-                    <form action="{{ URL::action('QuestionController@update',$row->id_theme)}}" method="post" enctype="multipart/form-data">
-                    @csrf <!-- {{ csrf_field() }} -->
 
+
+                    @foreach($theme as $row)
+                    <form  action="{{ URL::action('QuestionController@update', $row->id_theme)}}" id="insert_form" method="post" enctype="multipart/form-data">
+                        @csrf <!-- {{ csrf_field() }} -->
                             <div class="form">
                                 @foreach($questions as $question)
-                                    <div class="form-group row">
-                                        <label >Question level {{$question->level}}</label>
-                                        <textarea name="{{$question->level}}.question"></textarea>
-                                        <textarea name="{{$question->level}}.reponse"></textarea>
-                                        <textarea name="{{$question->level}}.carre1"></textarea>
-                                        <textarea name="{{$question->level}}.carre2"></textarea>
-                                        <textarea name="{{$question->level}}.carre3"></textarea>
-                                        <textarea name="{{$question->level}}.carre4"></textarea>
-                                        <textarea name="{{$question->level}}.duo1"></textarea>
-                                        <textarea name="{{$question->level}}.duo2"></textarea>
+                                    <div class="form-group ">
+                                        <u><h6 >Question level {{$question->level}}</h6></u>
+                                        <label >Question :</label><br>
+                                            <textarea id="{{$question->level}}_question" name="{{$question->level}}.question"></textarea>
+                                        <br><label >Reponse :</label><br>
+                                            <textarea id="{{$question->level}}_reponse" name="{{$question->level}}.reponse"></textarea>
+                                        <br><label >Carre 1 :</label><br>
+                                            <textarea id="{{$question->level}}_carre1" name="{{$question->level}}.carre1"></textarea>
+                                        <br><label >Carre 2 :</label><br>
+                                            <textarea id="{{$question->level}}_carre2" name="{{$question->level}}.carre2"></textarea>
+                                        <br><label >Carre 3 :</label><br>
+                                            <textarea id="{{$question->level}}_carre3" name="{{$question->level}}.carre3"></textarea>
+                                        <br><label >Carre 4 :</label><br>
+                                            <textarea id="{{$question->level}}_carre4" name="{{$question->level}}.carre4"></textarea>
+                                        <br><label >Duo 1 :</label><br>
+                                            <textarea id="{{$question->level}}_duo1" name="{{$question->level}}.duo1"></textarea>
+                                        <br><label >Duo 2 :</label><br>
+                                            <textarea id="{{$question->level}}_duo2" name="{{$question->level}}.duo2"></textarea>
                                     </div>
                                 @endforeach
                                 <div class="modal-footer col mt-4">
@@ -105,9 +125,14 @@
 
                     </form>
                     @endforeach
+                        @endif
                 </div>
             </div>
         </div>
     </div>
 
+@endsection
+
+@section('addScripts')
+    <script type="text/javascript" src="{!! asset('js/updateQuestion.js') !!}"></script>
 @endsection

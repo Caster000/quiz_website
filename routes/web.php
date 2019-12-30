@@ -20,6 +20,7 @@ Route::group(['prefix' => '/creation_quiz'], function () {
     Route::get('/', 'CreationQuizController@index')->name('creation_quiz');
     Route::post('/themeStore', 'ThemeController@store');
     Route::get('/delete/{id_theme}','ThemeController@delete');
+    Route::get('/index/{id_theme}','QuestionController@index');
     Route::post('/update/{id_theme}','QuestionController@update');
 });
 

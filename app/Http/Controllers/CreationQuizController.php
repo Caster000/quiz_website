@@ -26,6 +26,7 @@ class CreationQuizController extends Controller
         $theme = \DB::table('users')->join('theme','users.id_user','theme.id_user')->get();
         $users = Users::all();
         //$numero = $quiz->id_quiz;
+        //dd($theme);
         return view('quiz_creation.creation_panel',compact('users','theme','questions'));
     }
 }
