@@ -9,13 +9,16 @@
 
 ## Configurer le projet
 Installer Make.
-```make env```
-Créer la base de donnée.
-Modifier le ```.env```.
-```make configure```
 
-Pour run:
-```make run```
+Faire : ```make env```
+
+Créer la base de donnée.
+
+Modifier le ```.env```.
+
+Faire : ```make configure```
+
+Pour run: ```make run```
 
 ## About Laravel
 
